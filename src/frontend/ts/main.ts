@@ -46,6 +46,7 @@ class Main implements EventListenerObject {
             console.log("Buscando Dispotivos!");
             this.buscarDevices();
         }
+        
     }
 
     // Función para buscar y mostrar dispositivos
@@ -69,7 +70,7 @@ class Main implements EventListenerObject {
                                     <div class="switch">
                                         <label>
                                             Off
-                                            <input type="checkbox" ${item.state ? 'checked' : ''}>
+                                            <input type="checkbox" ${item.state ? 'checked' : ''} data-id="${item.id}" onchange="main.cambiarEstadoDispositivo(event)">
                                             <span class="lever"></span>
                                             On
                                         </label>
@@ -91,13 +92,27 @@ class Main implements EventListenerObject {
         xmlHttp.send(); 
     }
 
+    public cambiarEstadoDispositivo(event: Event): void {
+        let checkbox = <HTMLInputElement>event.target;
+        let idDispositivo = checkbox.getAttribute('data-id');
+        let nuevoEstado = checkbox.checked;
+   
+        // Mostrar en consola el ID del dispositivo y su nuevo estado (true o false)
+        console.log(`Dispositivo ID: ${idDispositivo} cambiado a: ${nuevoEstado ? 'On' : 'Off'}`);
+    }
+   
+
     // Método para recuperar un elemento HTML por su ID
     private recuperarElemento(id: string): HTMLInputElement {
         return <HTMLInputElement>document.getElementById(id);
     }
 }
 
-// Inicialización de la clase cuando la página carga
+// Inicialización de la clase cuando la página carga.
+
+let main: Main; // Declaro la variable 'main' fuera del 'load' para que sea accesible por el estado de los dispositivos.
+
 window.addEventListener('load', () => {
-    let main: Main = new Main();
+    main = new Main(); // Asigno la instancia de 'Main' a 'main'
 });
+
