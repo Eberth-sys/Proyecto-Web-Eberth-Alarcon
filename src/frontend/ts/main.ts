@@ -87,6 +87,9 @@ class Main implements EventListenerObject {
                                         </label>
                                     </div>
                                 </a>
+                                <div class="center-align">
+                                <button class="btn-small waves-effect waves-light" data-id="${item.id}" onclick="main.editarDispositivo(event)">Editar</button>
+                                </div>
                             </li>`;
                         }
                         ul.innerHTML = listaDevices;
@@ -112,6 +115,14 @@ class Main implements EventListenerObject {
         console.log(`Dispositivo ID: ${idDispositivo} cambiado a: ${nuevoEstado ? 'On' : 'Off'}`);
     }
    
+     public editarDispositivo(event: Event): void {
+        let boton = <HTMLButtonElement>event.target;
+        let idDispositivo = boton.getAttribute('data-id');
+
+        // Mostrar mensaje para editar el dispositivo
+        console.log(`Editar Dispositivo ID: ${idDispositivo}`);
+        alert(`Editar Dispositivo ID: ${idDispositivo}`);
+    }
 
     // Método para recuperar un elemento HTML por su ID
     private recuperarElemento(id: string): HTMLInputElement {
