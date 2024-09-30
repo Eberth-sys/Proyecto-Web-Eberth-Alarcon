@@ -1,100 +1,196 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link type="text/css" rel="stylesheet" href="./static/css/materialize.min.css"  media="screen,projection"/>
-      <link type="text/css" rel="stylesheet" href="./static/css/styles.css"  media="screen,projection"/>
-      <script type="text/javascript" src="./static/js/materialize.min.js"></script>
-      <script type="text/javascript" src="js/main.js"></script>
-      <script src="js/user.js"></script>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <main>
-            <!-- Navigation bar -->
-            <nav style="background-color:#124580">
-                <div class="nav-wrapper">
-                    <a href="#!" class="brand-logo left" style="margin-left: 15px;">Smart Home</a>
-                    <ul id="nav-mobile" class="right" style="margin-right: 15px;">
-                        <li><a href="#">Help</a></li>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="./static/css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="./static/css/styles.css" media="screen,projection"/>
+    <script type="text/javascript" src="./static/js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script src="js/user.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        /* Estilos generales */
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298); /* Degradado de fondo */
+            font-family: 'Orbitron', sans-serif; /* Fuente moderna */
+            color: #ffffff; /* Texto blanco */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos para la barra de navegación */
+        nav {
+            background-color: #0f2027; /* Azul oscuro */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra */
+        }
+
+        /* Estilos para el encabezado */
+        h3 {
+            font-size: 2.5rem;
+            letter-spacing: 0.1rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        /* Personalización del formulario de login */
+        #divLogin {
+            background: rgba(255, 255, 255, 0.1); /* Fondo transparente */
+            border: 2px solid #4ffbdf; /* Borde verde neón */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Animación al hacer hover en el formulario */
+        #divLogin:hover {
+            transform: scale(1.05); /* Aumenta ligeramente */
+        }
+
+        /* Estilos de los campos de entrada */
+        .input-field input[type=text], .input-field input[type=password] {
+            border-bottom: 2px solid #4ffbdf;
+            color: #ffffff;
+        }
+
+        /* Hover en el botón de ingresar */
+        #btnLogin {
+            background-color: #29a19c;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Cambios en hover */
+        #btnLogin:hover {
+            background-color: #3fada8;
+            transform: translateY(-3px);
+        }
+
+        /* Efectos en el botón de dispositivos */
+        #btnBuscar {
+            background-color: #4ffbdf;
+            color: #0f2027;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #btnBuscar:hover {
+            background-color: #29a19c;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        /* Personalización de la lista de dispositivos */
+        .collection-item {
+            background: rgba(255, 255, 255, 0.05); /* Fondo semitransparente */
+            border-left: 4px solid #4ffbdf;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+        }
+
+        .collection-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2); /* Mayor transparencia */
+        }
+
+        /* Estilo del footer */
+        footer {
+            background-color: #0f2027;
+        }
+
+        /* Ajustes generales de las letras */
+        label, span {
+            color: #ffffff !important; /* Colores del texto blanco */
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <!-- Navigation bar -->
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo left" style="margin-left: 15px;">Smart Home</a>
+                <ul id="nav-mobile" class="right" style="margin-right: 15px;">
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Body -->
+        <div class="container">
+            <br/>
+            <h3>Smart Home Web Client!</h3>
+            <hr class="custom-line">
+            <br/>
+            <div class="row">
+                <!-- Columna izquierda -->
+                <div class="col s12 m12 l6 xl6 center-align">
+                    <form style="margin-top: 50px;">
+                        <div class="input-field col s12" id="divLogin">
+                            <!-- Campo de usuario -->
+                            <div class="input-field col s12">
+                                <input placeholder="Usuario" id="userName" type="text">
+                                <label for="userName">Usuario</label>
+                            </div>
+                            <!-- Campo de contraseña -->
+                            <div class="input-field col s12">
+                                <input placeholder="Contraseña" id="userPass" type="password">
+                                <label for="userPass">Contraseña</label>
+                            </div>
+                            <!-- Botón de check recordar -->
+                            <p class="center">
+                                <label>
+                                    <input type="checkbox" id="cbRecor"/>
+                                    <span>Recordarme</span>
+                                </label>
+                            </p>
+                            <!-- Botón de ingresar -->
+                            <button id="btnLogin" class="btn-small waves-effect waves-light" type="submit" name="action">Ingresar
+                                <i class="material-icons right">person</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Columna derecha -->
+                <div class="col s12 m12 l6 xl6">
+                    <p>Columna derecha</p>
+                    <ul id="list" class="collection">
+                        <!-- Contenido para iterar los dispositivos -->
                     </ul>
                 </div>
-            </nav>	
-            <!-- Page Body -->
-            <div class="container">
-                <br/>
-                <h3>Smart Home Web Client!</h3>
-                <hr class="custom-line">
-                <br/>
-                <div class="row">
-                    <!-- Columna izquierda -->
-                    <div class="col s12 m12 l6 xl6 center-align">
-                        <p>Columna izquierda</p>
-                        <form style="margin-top: 50px;"> <!-- Añadir margen superior para bajar el formulario -->
-                            <div class="input-field col s12" id="divLogin">
-                                <!-- Campo de usuario -->
-                                <div class="input-field col s12">
-                                    <input placeholder="Usuario" id="userName" type="text">
-                                    <label for="userName">Usuario</label>
-                                </div>
-                                <!-- Campo de contraseña -->
-                                <div class="input-field col s12">
-                                    <input placeholder="Contraseña" id="userPass" type="password">
-                                    <label for="userPass">Contraseña</label>
-                                </div>
-                                <!-- Botón de check recordar -->
-                                <p class="center">
-                                    <label>
-                                        <input type="checkbox" id="cbRecor"/>
-                                        <span>Recordarme</span>
-                                    </label>
-                                </p>
-                                <!-- Botón de ingresar -->
-                                <button id="btnLogin" class="btn-small waves-effect waves-light" type="submit" name="action">Ingresar
-                                    <i class="material-icons right">person</i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- Columna derecha -->
-                    <div class="col s12 m12 l6 xl6">
-                        <p>Columna derecha</p>
-                        <ul  id="list" class="collection">
-                            <!-- Contenido para iterar los dispositivos -->
-                          </ul>
-                    </div>
-                </div>                
-                <div class="row">
-                    <div class="input-field col s12 m12 l12 xl12">
-                        <textarea id="textarea_1" class="materialize-textarea" style="height: 150px;" readonly></textarea>
-                    </div>
-                    <div class="col s4 m4 l2 xl2">
-                         <!-- Botón de Buscar Dispositivos-->
-                        <button id="btnBuscar" class="btn waves-effect waves-light button-view"  name="hello_button">Dispositivos</button>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12 xl12">
+                    <textarea id="textarea_1" class="materialize-textarea" style="height: 150px;" readonly></textarea>
                 </div>
-            </div>	
-        </main>
-		<!-- Page Footer -->
-        <footer class="page-footer" style="background-color:#124580">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s6">
-                        <h5 class="white-text">Smart Home</h5>
-                        <p class="grey-text text-lighten-4">Copyright ### - 2021</p>
-                    </div>
-                    <div class="col l6 s6">
-                        <h5 class="white-text right-align">Contact</h5>
-                        <p class="white-text right-align">
-                            <a class="grey-text text-lighten-3" href="!#">Email | </a>
-                            <a class="grey-text text-lighten-3" href="!#">Twitter | </a>
-                            <a class="grey-text text-lighten-3" href="!#">LinkedIn</a>
-                        </p>
-                    </div>
+                <div class="col s4 m4 l2 xl2">
+                    <!-- Botón de Buscar Dispositivos -->
+                    <button id="btnBuscar" class="btn waves-effect waves-light button-view" name="hello_button">Dispositivos</button>
                 </div>
             </div>
-        </footer>
-		<!--JavaScript at end of body for optimized loading-->
-	
-    </body>
-  </html>
+        </div>
+    </main>
+    <!-- Page Footer -->
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s6">
+                    <h5 class="white-text">Smart Home</h5>
+                    <p class="grey-text text-lighten-4">Copyright ### - 2021</p>
+                </div>
+                <div class="col l6 s6">
+                    <h5 class="white-text right-align">Contact</h5>
+                    <p class="white-text right-align">
+                        <a class="grey-text text-lighten-3" href="!#">Email | </a>
+                        <a class="grey-text text-lighten-3" href="!#">Twitter | </a>
+                        <a class="grey-text text-lighten-3" href="!#">LinkedIn</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
