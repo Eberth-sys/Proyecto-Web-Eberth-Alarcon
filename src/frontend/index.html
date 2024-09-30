@@ -6,6 +6,7 @@
       <link type="text/css" rel="stylesheet" href="./static/css/styles.css"  media="screen,projection"/>
       <script type="text/javascript" src="./static/js/materialize.min.js"></script>
       <script type="text/javascript" src="js/main.js"></script>
+      <script src="js/user.js"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
@@ -23,7 +24,43 @@
             <div class="container">
                 <br/>
                 <h3>Smart Home Web Client!</h3>
+                <hr class="custom-line">
                 <br/>
+                <div class="row">
+                    <!-- Columna izquierda -->
+                    <div class="col s12 m12 l6 xl6 center-align">
+                        <p>Columna izquierda</p>
+                        <form style="margin-top: 50px;"> <!-- Añadir margen superior para bajar el formulario -->
+                            <div class="input-field col s12" id="divLogin">
+                                <!-- Campo de usuario -->
+                                <div class="input-field col s12">
+                                    <input placeholder="Usuario" id="userName" type="text">
+                                    <label for="userName">Usuario</label>
+                                </div>
+                                <!-- Campo de contraseña -->
+                                <div class="input-field col s12">
+                                    <input placeholder="Contraseña" id="userPass" type="password">
+                                    <label for="userPass">Contraseña</label>
+                                </div>
+                                <!-- Botón de check recordar -->
+                                <p class="center">
+                                    <label>
+                                        <input type="checkbox" id="cbRecor"/>
+                                        <span>Recordarme</span>
+                                    </label>
+                                </p>
+                                <!-- Botón de ingresar -->
+                                <button id="btnLogin" class="btn-small waves-effect waves-light" type="submit" name="action">Ingresar
+                                    <i class="material-icons right">person</i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Columna derecha -->
+                    <div class="col s12 m12 l6 xl6">
+                        <p>Columna derecha</p>
+                    </div>
+                </div>                
                 <div class="row">
                     <div class="input-field col s12 m12 l12 xl12">
                         <textarea id="textarea_1" class="materialize-textarea" style="height: 150px;" readonly></textarea>
