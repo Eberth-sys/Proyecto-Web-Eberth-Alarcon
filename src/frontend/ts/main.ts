@@ -89,6 +89,8 @@ class Main implements EventListenerObject {
                                 </a>
                                 <div class="center-align">
                                 <button class="btn-small waves-effect waves-light" data-id="${item.id}" onclick="main.editarDispositivo(event)">Editar</button>
+                                <!-- Botón de Eliminar -->
+                                <button class="btn-small red waves-effect waves-light" onclick="main.eliminarDispositivo(${item.id})">Eliminar</button>
                                 </div>
                             </li>`;
                         }
@@ -123,6 +125,14 @@ class Main implements EventListenerObject {
         console.log(`Editar Dispositivo ID: ${idDispositivo}`);
         alert(`Editar Dispositivo ID: ${idDispositivo}`);
     }
+
+    public eliminarDispositivo(idDispositivo: number): void {
+        // Lógica para eliminar el dispositivo. Actualmente, solo se imprime en la consola.
+        console.log(`Dispositivo ID: ${idDispositivo} será eliminado.`);
+        // Mensaje de alerta que sera eliminado
+        alert(`El Dispositivo ID: ${idDispositivo} será eliminado.`);
+    }
+    
 
     // Método para recuperar un elemento HTML por su ID
     private recuperarElemento(id: string): HTMLInputElement {
