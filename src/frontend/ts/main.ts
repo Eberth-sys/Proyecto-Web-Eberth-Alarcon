@@ -9,6 +9,10 @@ class Main implements EventListenerObject {
         // Vinculación del botón 'Buscar Dispositivos' con el evento de clic
         let btnBuscar = this.recuperarElemento("btnBuscar");
         btnBuscar.addEventListener('click', this);
+
+        // Vinculación del botón 'Agregar Nuevo Dispositivo +' con el evento de clic
+        let btnAgregarDispositivo = this.recuperarElemento("btnAgregarDispositivo");
+        btnAgregarDispositivo.addEventListener('click', this); // <-- Asegurarse de vincular el botón aquí
     }
 
     handleEvent(object: Event): void {
@@ -45,6 +49,13 @@ class Main implements EventListenerObject {
         else if (idDelElemento === 'btnBuscar') {
             console.log("Buscando Dispotivos!");
             this.buscarDevices();
+        }
+
+        // Boton para Agregar nuevo dispositivo
+        else if (idDelElemento === 'btnAgregarDispositivo') {
+            console.log("Agregar un nuevo dispositivo");
+            // Muestro mensaje para agregar un dispotivo
+            alert("Agregar dispositivo");
         }
         
     }
