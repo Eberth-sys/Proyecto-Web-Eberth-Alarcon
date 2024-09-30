@@ -2,7 +2,6 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="./static/css/materialize.min.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="./static/css/styles.css" media="screen,projection"/>
     <script type="text/javascript" src="./static/js/materialize.min.js"></script>
@@ -10,115 +9,101 @@
     <script src="js/user.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
-        /* Estilos generales */
+        /* Fondo futurista */
         body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298); /* Degradado de fondo */
-            font-family: 'Orbitron', sans-serif; /* Fuente moderna */
-            color: #ffffff; /* Texto blanco */
-            margin: 0;
-            padding: 0;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
         }
 
-        /* Estilos para la barra de navegación */
-        nav {
-            background-color: #0f2027; /* Azul oscuro */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra */
-        }
-
-        /* Estilos para el encabezado */
-        h3 {
-            font-size: 2.5rem;
-            letter-spacing: 0.1rem;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        /* Personalización del formulario de login */
+        /* Fondo para el formulario en una tarjeta con sombra */
         #divLogin {
-            background: rgba(255, 255, 255, 0.1); /* Fondo transparente */
-            border: 2px solid #4ffbdf; /* Borde verde neón */
-            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra */
-            transition: transform 0.3s ease-in-out;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
 
-        /* Animación al hacer hover en el formulario */
+        /* Efecto hover en la tarjeta del formulario */
         #divLogin:hover {
-            transform: scale(1.05); /* Aumenta ligeramente */
+            transform: translateY(-10px);
+            box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.6);
         }
 
-        /* Estilos de los campos de entrada */
+        /* Estilo futurista para los campos */
         .input-field input[type=text], .input-field input[type=password] {
-            border-bottom: 2px solid #4ffbdf;
+            border-bottom: 2px solid #03dac6;
             color: #ffffff;
         }
 
-        /* Hover en el botón de ingresar */
+        /* Cambiar color del label en enfoque */
+        .input-field input[type=text]:focus + label, .input-field input[type=password]:focus + label {
+            color: #03dac6;
+        }
+
+        /* Botón de ingresar estilo neón */
         #btnLogin {
-            background-color: #29a19c;
-            border-radius: 50px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #03dac6, #018786);
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(3, 218, 198, 0.6);
+            transition: box-shadow 0.3s ease, background 0.3s ease;
         }
 
-        /* Cambios en hover */
         #btnLogin:hover {
-            background-color: #3fada8;
-            transform: translateY(-3px);
+            background: linear-gradient(135deg, #018786, #03dac6);
+            box-shadow: 0 6px 12px rgba(3, 218, 198, 1);
         }
 
-        /* Efectos en el botón de dispositivos */
-        #btnBuscar {
-            background-color: #4ffbdf;
-            color: #0f2027;
-            border-radius: 25px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        #btnBuscar:hover {
-            background-color: #29a19c;
-            color: #ffffff;
-            transform: translateY(-3px);
-        }
-
-        /* Personalización de la lista de dispositivos */
+        /* Tarjeta de dispositivos */
         .collection-item {
-            background: rgba(255, 255, 255, 0.05); /* Fondo semitransparente */
-            border-left: 4px solid #4ffbdf;
-            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
             margin-bottom: 10px;
-            transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.5s ease forwards;
         }
 
-        .collection-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.2); /* Mayor transparencia */
+        /* Animación personalizada para la lista de dispositivos */
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Estilo del footer */
-        footer {
-            background-color: #0f2027;
+        /* Estilo de navegación con sombra */
+        nav {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        /* Ajustes generales de las letras */
-        label, span {
-            color: #ffffff !important; /* Colores del texto blanco */
+        /* Footer tecnológico */
+        footer.page-footer {
+            background-color: #018786;
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
-
     </style>
 </head>
 <body>
     <main>
         <!-- Navigation bar -->
-        <nav>
+        <nav style="background-color:#124580">
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo left" style="margin-left: 15px;">Smart Home</a>
                 <ul id="nav-mobile" class="right" style="margin-right: 15px;">
                     <li><a href="#">Help</a></li>
                 </ul>
             </div>
-        </nav>
+        </nav>	
         <!-- Page Body -->
         <div class="container">
             <br/>
@@ -126,7 +111,7 @@
             <hr class="custom-line">
             <br/>
             <div class="row">
-                <!-- Columna izquierda -->
+                <!-- Columna izquierda (formulario) -->
                 <div class="col s12 m12 l6 xl6 center-align">
                     <form style="margin-top: 50px;">
                         <div class="input-field col s12" id="divLogin">
@@ -144,7 +129,7 @@
                             <p class="center">
                                 <label>
                                     <input type="checkbox" id="cbRecor"/>
-                                    <span>Recordarme</span>
+                                    <span style="color: white;">Recordarme</span>
                                 </label>
                             </p>
                             <!-- Botón de ingresar -->
@@ -154,24 +139,24 @@
                         </div>
                     </form>
                 </div>
-                <!-- Columna derecha -->
+                <!-- Columna derecha (Lista de dispositivos) -->
                 <div class="col s12 m12 l6 xl6">
-                    <p>Columna derecha</p>
+                    <p>Dispositivos disponibles</p>
                     <ul id="list" class="collection">
                         <!-- Contenido para iterar los dispositivos -->
                     </ul>
                 </div>
-            </div>
+            </div>                
             <div class="row">
                 <div class="input-field col s12 m12 l12 xl12">
                     <textarea id="textarea_1" class="materialize-textarea" style="height: 150px;" readonly></textarea>
                 </div>
                 <div class="col s4 m4 l2 xl2">
-                    <!-- Botón de Buscar Dispositivos -->
+                    <!-- Botón de Buscar Dispositivos-->
                     <button id="btnBuscar" class="btn waves-effect waves-light button-view" name="hello_button">Dispositivos</button>
                 </div>
             </div>
-        </div>
+        </div>	
     </main>
     <!-- Page Footer -->
     <footer class="page-footer">
@@ -179,7 +164,7 @@
             <div class="row">
                 <div class="col l6 s6">
                     <h5 class="white-text">Smart Home</h5>
-                    <p class="grey-text text-lighten-4">Copyright ### - 2021</p>
+                    <p class="grey-text text-lighten-4">Copyright ### - 2024</p>
                 </div>
                 <div class="col l6 s6">
                     <h5 class="white-text right-align">Contact</h5>

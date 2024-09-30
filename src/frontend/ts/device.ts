@@ -5,3 +5,5 @@ class Device{
     public state: boolean;
     public type: number;
   }
+
+  
