@@ -29,6 +29,27 @@ app.get('/devices/', function(req, res, next) {
             'state': 1, 
             'type': 2, 
         },
+        { 
+            'id': 3, 
+            'name': 'Aspiradora 1', 
+            'description': 'Aspiradora IoT', 
+            'state': 1, 
+            'type': 2, 
+        },
+        { 
+            'id': 4, 
+            'name': 'ESP32 C3 1', 
+            'description': 'Microcontrolador ESP32 C3', 
+            'state': 0, 
+            'type': 2, 
+        },
+        { 
+            'id': 5, 
+            'name': 'Cafetera 1', 
+            'description': 'Cafetera cocina', 
+            'state': 1, 
+            'type': 2, 
+        },
     ]
     res.send(JSON.stringify(devices)).status(200);
 });

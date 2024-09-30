@@ -2,48 +2,93 @@ class Main implements EventListenerObject {
     private users: Array<Usuario> = new Array();
 
     constructor() {
-
         // Vinculación del botón 'Ingresar' con el evento de clic
         let btnLogin = this.recuperarElemento("btnLogin");
         btnLogin.addEventListener('click', this);
+
+        // Vinculación del botón 'Buscar Dispositivos' con el evento de clic
+        let btnBuscar = this.recuperarElemento("btnBuscar");
+        btnBuscar.addEventListener('click', this);
     }
 
     handleEvent(object: Event): void {
         let idDelElemento = (<HTMLElement>object.target).id;
-        
+
+        // Validación del formulario de login
         if (idDelElemento === 'btnLogin') {
             console.log("login");
 
-            // Recuperar valores del input de usuario y contraseña
             let iUser = this.recuperarElemento("userName");
             let iPass = this.recuperarElemento("userPass");
             let usuarioNombre: string = iUser.value;
             let usuarioPassword: string = iPass.value;
-            
-            // Validación del usuario y contraseña
+
             if (usuarioNombre.length >= 4 && usuarioPassword.length >= 6) {
                 console.log("Voy al servidor... ejecuto consulta");
-
-                // Crear un objeto Usuario para simulación
                 let usuario: Usuario = new Usuario(usuarioNombre, usuarioPassword);
 
-                // Validación del checkbox "Recordarme"
                 let checkbox = this.recuperarElemento("cbRecor");
                 console.log(usuario, checkbox.checked);
 
-                // Desactivar los campos de usuario y contraseña tras la validación
                 iUser.disabled = true;
                 iPass.disabled = true;
                 (<HTMLInputElement>object.target).disabled = true;
 
-                // Esconder el formulario de login (opcional)
                 let divLogin = this.recuperarElemento("divLogin");
                 divLogin.hidden = true;
             } else {
-                // Mensaje de error si no cumple con las validaciones
                 alert("El nombre de usuario debe tener al menos 4 caracteres y la contraseña al menos 6 caracteres.");
             }
         }
+
+        // Búsqueda de dispositivos
+        else if (idDelElemento === 'btnBuscar') {
+            console.log("Buscando Dispotivos!");
+            this.buscarDevices();
+        }
+    }
+
+    // Función para buscar y mostrar dispositivos
+    private buscarDevices(): void {
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = () => {
+            if (xmlHttp.readyState == 4) {
+                if (xmlHttp.status == 200) {
+                    let ul = this.recuperarElemento("list");
+
+                    if (ul) { // Asegurarse de que el elemento 'list' existe
+                        let listaDevices: string = '';
+                        let lista: Array<Device> = JSON.parse(xmlHttp.responseText);
+
+                        for (let item of lista) {
+                            listaDevices += `<li class="collection-item avatar">
+                                <img src="./static/images/1421.png" alt="" class="circle">
+                                <span class="title">${item.name}</span>
+                                <p>${item.description}</p>
+                                <a href="#!" class="secondary-content">
+                                    <div class="switch">
+                                        <label>
+                                            Off
+                                            <input type="checkbox" ${item.state ? 'checked' : ''}>
+                                            <span class="lever"></span>
+                                            On
+                                        </label>
+                                    </div>
+                                </a>
+                            </li>`;
+                        }
+                        ul.innerHTML = listaDevices;
+                    } else {
+                        alert("No se encontró el contenedor de la lista de dispositivos.");
+                    }
+                } else {
+                    alert("ERROR en la consulta de dispositivos.");
+                }
+            }
+        }
+
+        xmlHttp.open("GET", "http://localhost:8000/devices", true);
+        xmlHttp.send(); 
     }
 
     // Método para recuperar un elemento HTML por su ID
