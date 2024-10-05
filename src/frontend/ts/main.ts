@@ -68,7 +68,7 @@ class Main implements EventListenerObject {
                 if (xmlHttp.status == 200) {
                     let ul = this.recuperarElemento("list");
 
-                    if (ul) { // Asegurarse de que el elemento 'list' existe
+                    if (ul) { // elemento 'list' existe
                         let listaDevices: string = '';
                         let lista: Array<Device> = JSON.parse(xmlHttp.responseText);
 
@@ -90,7 +90,7 @@ class Main implements EventListenerObject {
                                 <div class="center-align">
                                 <button class="btn-small waves-effect waves-light" data-id="${item.id}" onclick="main.editarDispositivo(event)">Editar</button>
                                 <!-- Botón de Eliminar -->
-                                <button class="btn-small red waves-effect waves-light" onclick="main.eliminarDispositivo(${item.id})">Eliminar</button>
+                                <button class="btn-small red waves-effect waves-light" onclick="main.eliminarDispositivo(${item.id}, '${item.name}')">Eliminar</button>
                                 </div>
                             </li>`;
                         }
@@ -126,11 +126,10 @@ class Main implements EventListenerObject {
         alert(`Editar Dispositivo ID: ${idDispositivo}`);
     }
 
-    public eliminarDispositivo(idDispositivo: number): void {
-        // Lógica para eliminar el dispositivo. Actualmente, solo se imprime en la consola.
-        console.log(`Dispositivo ID: ${idDispositivo} será eliminado.`);
+    public eliminarDispositivo(idDispositivo: number, nombreDispositivo: string): void {
+        console.log(`Dispositivo ID: ${idDispositivo} con nombre [${nombreDispositivo}] será eliminado.`);
         // Mensaje de alerta que sera eliminado
-        alert(`El Dispositivo ID: ${idDispositivo} será eliminado.`);
+        alert(`El Dispositivo ID: ${idDispositivo} con nombre [${nombreDispositivo}] será eliminado.`);
     }
     
 
@@ -147,4 +146,3 @@ let main: Main; // Declaro la variable 'main' fuera del 'load' para que sea acce
 window.addEventListener('load', () => {
     main = new Main(); // Asigno la instancia de 'Main' a 'main'
 });
-
