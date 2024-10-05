@@ -32,7 +32,7 @@ class Main implements EventListenerObject {
                 let usuario: Usuario = new Usuario(usuarioNombre, usuarioPassword);
 
                 let checkbox = this.recuperarElemento("cbRecor");
-                console.log(usuario, checkbox.checked);
+                console.log(usuario, checkbox.checked); // Muestro en pantalla las credenciales y el estado booleno del boton checked.
 
                 iUser.disabled = true;
                 iPass.disabled = true;
@@ -40,7 +40,25 @@ class Main implements EventListenerObject {
 
                 let divLogin = this.recuperarElemento("divLogin");
                 divLogin.hidden = true;
+
+                // Enviar las credenciales al servidor Backend
+                let data = JSON.stringify({ name: usuarioNombre, password: usuarioPassword });
+
+                // Realizar la solicitud POST al servidor
+                let xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("POST", "http://localhost:8000/usuario/", true);  
+                xmlHttp.setRequestHeader("Content-Type", "application/json");
+                xmlHttp.onreadystatechange = () => {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        console.log("Credenciales enviadas y validadas en el servidor Backend");
+                    } else if (xmlHttp.readyState === 4) {
+                        console.log("Error en la validación de credenciales. Código de estado: ", xmlHttp.status);
+                    }
+                };
+                xmlHttp.send(data);
+
             } else {
+                console.log("El nombre de usuario debe tener al menos 4 caracteres y la contraseña al menos 6 caracteres.");
                 alert("El nombre de usuario debe tener al menos 4 caracteres y la contraseña al menos 6 caracteres.");
             }
         }
