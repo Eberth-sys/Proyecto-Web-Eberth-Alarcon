@@ -115,6 +115,7 @@ class Main implements EventListenerObject {
    
         // Mostrar en consola el ID del dispositivo y su nuevo estado (true o false)
         console.log(`Dispositivo ID: ${idDispositivo} cambiado a: ${nuevoEstado ? 'On' : 'Off'}`);
+        console.log(`Estado booleano enviado: ${nuevoEstado}`);
     }
    
      public editarDispositivo(event: Event): void {
