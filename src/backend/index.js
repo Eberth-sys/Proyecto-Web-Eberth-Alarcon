@@ -13,12 +13,12 @@ app.use(express.static('/home/node/app/static/'));
 
 //=======[ Main module code ]==================================================
 
-// Apartado de la validación de credenciales.
+// Apartado de la [ Validación de credenciales ].
 app.post('/usuario', function(req, res) {
     // Imprimo los datos enviados desde el frontend para asegurarme que llegan correctamente
-    console.log(req.body);
+    console.log("Credenciales", req.body);
 
-    //Verifico si recibo las credenciales desde el frontend
+    //Verifico las credenciales recibidas desde el frontend
     if (req.body.name !== undefined && req.body.password !== undefined) {
         // Mostrar mensaje en la consola del servidor
         console.log(` - Server Backend: Credenciales recibidas: Nombre de usuario: ${req.body.name}, Contraseña: ${req.body.password}`);
@@ -31,6 +31,22 @@ app.post('/usuario', function(req, res) {
     }
 });
 
+// Apartado de la [ ESTADO DE LOS DISPOTIVOS. ].
+
+app.put('/updateDeviceState', function(req, res) {
+    // Imprimo los datos recibidos desde el frontend
+    console.log("Dispotivo y Estado", req.body);
+
+    // Verifico si recibo el ID del dispositivo y el nuevo estado
+    if (req.body.id !== undefined && req.body.state !== undefined) {
+        console.log(`[Backend]: El dispositivo con ID ${req.body.id} ha sido actualizado a: ${req.body.state ? 'On' : 'Off'}`);
+        // Responder al frontend con un mensaje de confirmación
+        res.status(200).send(`[Backend]: Estado del dispositivo ID ${req.body.id} ha sido actualizado correctamente a: ${req.body.state ? 'On' : 'Off'}`);
+    } else {
+        // Si no se cumple, responder con un mensaje de error
+        res.status(400).send('[Backend]: Datos incompletos o inválidos');
+    }
+});
 
 app.get('/devices/', function(req, res, next) {
     devices = [

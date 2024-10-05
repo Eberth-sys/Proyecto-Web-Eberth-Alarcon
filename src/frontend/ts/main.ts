@@ -134,7 +134,23 @@ class Main implements EventListenerObject {
         // Mostrar en consola el ID del dispositivo y su nuevo estado (true o false)
         console.log(`Dispositivo ID: ${idDispositivo} cambiado a: ${nuevoEstado ? 'On' : 'Off'}`);
         console.log(`Estado booleano enviado: ${nuevoEstado}`);
+
+        // Envio el nuevo estado del dispositivo al servidor Backend
+        let data = JSON.stringify({ id: idDispositivo, state: nuevoEstado });
+
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("PUT", "http://localhost:8000/updateDeviceState", true); // Llamo la funcion del backend
+        xmlHttp.setRequestHeader("Content-Type", "application/json");
+        xmlHttp.onreadystatechange = () => {
+            if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                console.log("Estado del dispositivo actualizado en el servidor");
+            } else if (xmlHttp.readyState === 4) {
+                console.log("Error al actualizar el estado del dispositivo");
+            }
+        };
+        xmlHttp.send(data); // Envío el ID y el estado actualizado al backend
     }
+
    
      public editarDispositivo(event: Event): void {
         let boton = <HTMLButtonElement>event.target;
