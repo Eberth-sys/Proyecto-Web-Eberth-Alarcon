@@ -72,6 +72,30 @@ app.put('/updateDeviceState', function(req, res) {
     }
 });
 
+// Apartado para la opción de Editar LOS DISPOTIVOS.
+
+app.put('/editDevice', function(req, res) {
+    // Imprimo los datos recibidos desde el frontend
+    console.log("Datos del dispositivo a editar", req.body);
+
+    // Verifico si recibo los datos necesarios: id, name, description, type
+    if (req.body.id !== undefined && req.body.name !== undefined && req.body.description !== undefined && req.body.type !== undefined) {
+        // Construyo la consulta para actualizar el dispositivo, obteniendo los valores que me llegan del frontend.
+        let query = `UPDATE Devices SET name = '${req.body.name}', description = '${req.body.description}', type = ${req.body.type} WHERE id = ${req.body.id}`;
+
+        utils.query(query, (err, resp, meta) => {
+            if (err) {
+                console.log(err.sqlMessage);
+                res.status(409).send(err.sqlMessage);
+            } else {
+                res.status(200).send(`Dispositivo ID ${req.body.id} actualizado correctamente.`); //notifico que el dispitivo fue modificado.
+            }
+        });
+    } else {
+        // Si no se cumplen las condiciones, responder con un mensaje de error
+        res.status(400).send('[Backend]: Datos incompletos o inválidos para la edición');
+    }
+});
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");

@@ -157,7 +157,34 @@ class Main implements EventListenerObject {
 
         // Mostrar mensaje para editar el dispositivo
         console.log(`Editar Dispositivo ID: ${idDispositivo}`);
-        alert(`Editar Dispositivo ID: ${idDispositivo}`);
+        let nuevoNombre = prompt("Editar Nombre del dispositivo:");
+        let nuevaDescripcion = prompt("Editar Descripción del dispositivo:");
+        let nuevoTipo = prompt("Editar Tipo de dispositivo:");
+
+        if (nuevoNombre && nuevaDescripcion && nuevoTipo) {
+            // Crear el cuerpo de la solicitud
+            let data = JSON.stringify({
+                id: idDispositivo,
+                name: nuevoNombre,
+                description: nuevaDescripcion,
+                type: parseInt(nuevoTipo)
+            });
+
+            // Envío la solicitud PUT al backend
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("PUT", "http://localhost:8000/editDevice", true);
+            xmlHttp.setRequestHeader("Content-Type", "application/json");
+            xmlHttp.onreadystatechange = () => {
+                if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                    console.log("Dispositivo actualizado en el servidor");
+                } else if (xmlHttp.readyState === 4) {
+                    console.log("Error al actualizar el dispositivo");
+                }
+            };
+            xmlHttp.send(data); // Enviar los nuevos datos al backend
+        } else {
+            alert("Todos los campos deben ser completados.");
+        }
     }
 
     public eliminarDispositivo(idDispositivo: number, nombreDispositivo: string): void {
