@@ -111,6 +111,26 @@ app.delete('/deleteDevice/:id', function(req, res) {
     });
 });
 
+// Apartado para [Agregar un DISPOTIVOS].
+app.post('/addDevice', function(req, res) {
+    let { name, description, type, state } = req.body;
+
+    // Verifico que se han recibido todos los campos correctos
+    if (name && description && type !== undefined && state !== undefined) {
+        let query = `INSERT INTO Devices (name, description, type, state) VALUES ('${name}', '${description}', ${type}, ${state})`; //Actualizado la BD con la nueva información.
+
+        utils.query(query, function(error, results) {
+            if (error) {
+                console.log("Error al agregar el dispositivo: " + error.sqlMessage);
+                res.status(409).send(error.sqlMessage);
+            } else {
+                res.status(200).send("Dispositivo agregado correctamente");
+            }
+        });
+    } else {
+        res.status(400).send("Datos incompletos o inválidos");
+    }
+});
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");

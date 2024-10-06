@@ -72,10 +72,39 @@ class Main implements EventListenerObject {
         // Boton para Agregar nuevo dispositivo
         else if (idDelElemento === 'btnAgregarDispositivo') {
             console.log("Agregar un nuevo dispositivo");
-            // Muestro mensaje para agregar un dispotivo
-            alert("Agregar dispositivo");
-        }
+            
+            // Pido al usuario los datos del nuevo dispositivo
+            let nuevoNombre = prompt("Por favor, Ingrese el nombre del dispositivo:");
+            let nuevaDescripcion = prompt("Ingrese la descripción del dispositivo:");
+            let nuevoTipo = prompt("Ingrese el tipo del dispositivo.):");
+            let nuevoEstado = prompt("Ingrese el estado del dispositivo (1 para encendido, 0 para apagado):");
         
+            if (nuevoNombre && nuevaDescripcion && nuevoTipo !== null && nuevoEstado !== null) { //verifico que los datos ingresados.
+                let data = JSON.stringify({
+                    name: nuevoNombre,
+                    description: nuevaDescripcion,
+                    type: parseInt(nuevoTipo),
+                    state: parseInt(nuevoEstado)
+                });
+        
+                // Envío la solicitud POST al backend
+                let xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("POST", "http://localhost:8000/addDevice", true);
+                xmlHttp.setRequestHeader("Content-Type", "application/json");
+                xmlHttp.onreadystatechange = () => {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        console.log("Nuevo dispositivo agregado correctamente");
+                        alert("Dispositivo agregado correctamente");
+                        this.buscarDevices(); // Actualizo la lista de dispositivos
+                    } else if (xmlHttp.readyState === 4) {
+                        console.log("Error al agregar el dispositivo");
+                    }
+                };
+                xmlHttp.send(data);
+            } else {
+                alert("Todos los campos son obligatorios");
+            }
+        }      
     }
 
     // Función para buscar y mostrar dispositivos
