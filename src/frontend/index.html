@@ -29,7 +29,6 @@
                 <div class="row">
                     <!-- Columna izquierda -->
                     <div class="col s12 m12 l6 xl6 center-align">
-                        <p>Columna izquierda</p>
                         <form style="margin-top: 50px;"> <!-- Añadir margen superior para bajar el formulario -->
                             <div class="input-field col s12" id="divLogin">
                                 <!-- Campo de usuario -->
@@ -55,18 +54,25 @@
                                 </button>
                             </div>
                         </form>
+                            <!-- Botón de Buscar Dispositivos-->
+                        <div class="center-align" style="display: flex; justify-content: center; margin-bottom: 20px;">
+                            <button id="btnBuscar" class="btn waves-effect waves-light button-view"  name="hello_button">Dispositivos</button>
+                        </div>
                     </div>
                     <!-- Columna derecha -->
                     <div class="col s12 m12 l6 xl6">
-                        <p>Columna derecha</p>
                         <!-- Botón para agregar un nuevo dispositivo centrado -->
-                        <div class="center-align" style="margin-bottom: 20px;">
+                        <div class="center-align" id="btnContainer">
                             <button id="btnAgregarDispositivo" class="btn waves-effect waves-light" type="button">Agregar Nuevo Dispositivo
                                 <i class="material-icons right">add</i>
                             </button>
                         </div>
                         <ul  id="list" class="collection">
+
+                            <!-- ###################################### -->
                             <!-- Contenido para iterar los dispositivos -->
+                            <!-- ###################################### -->
+
                         </ul>
                     </div>
                 </div>                
@@ -75,8 +81,6 @@
                         <textarea id="textarea_1" class="materialize-textarea" style="height: 150px;" readonly></textarea>
                     </div>
                     <div class="col s4 m4 l2 xl2">
-                         <!-- Botón de Buscar Dispositivos-->
-                        <button id="btnBuscar" class="btn waves-effect waves-light button-view"  name="hello_button">Dispositivos</button>
                     </div>
                 </div>
             </div>	

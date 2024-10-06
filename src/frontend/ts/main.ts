@@ -12,7 +12,7 @@ class Main implements EventListenerObject {
 
         // Vinculación del botón 'Agregar Nuevo Dispositivo +' con el evento de clic
         let btnAgregarDispositivo = this.recuperarElemento("btnAgregarDispositivo");
-        btnAgregarDispositivo.addEventListener('click', this); // <-- Asegurarse de vincular el botón aquí
+        btnAgregarDispositivo.addEventListener('click', this); 
     }
 
     handleEvent(object: Event): void {
@@ -40,6 +40,12 @@ class Main implements EventListenerObject {
 
                 let divLogin = this.recuperarElemento("divLogin");
                 divLogin.hidden = true;
+                 
+                // Mostrar los botones "Dispositivos" y "Agregar Nuevo Dispositivo despues de iniciar sesión."
+                let btnDispositivos = this.recuperarElemento("btnBuscar");
+                let btnAgregarDispositivo = this.recuperarElemento("btnAgregarDispositivo");
+                btnDispositivos.style.display = "block";
+                btnAgregarDispositivo.style.display = "block";
 
                 // Enviar las credenciales al servidor Backend
                 let data = JSON.stringify({ name: usuarioNombre, password: usuarioPassword });
@@ -114,6 +120,7 @@ class Main implements EventListenerObject {
             if (xmlHttp.readyState == 4) {
                 if (xmlHttp.status == 200) {
                     let ul = this.recuperarElemento("list");
+                    let btnContainer = document.getElementById("btnContainer"); //Mostrar el boton agregar en conjutno con la lista de dispotivios.
     
                     if (ul) { // elemento 'list' existe
                         let listaDevices: string = '';
@@ -167,6 +174,8 @@ class Main implements EventListenerObject {
                             }
                         }
                         ul.innerHTML = listaDevices;
+                        btnContainer.style.display = "flex";
+
                     } else {
                         alert("No se encontró el contenedor de la lista de dispositivos.");
                     }

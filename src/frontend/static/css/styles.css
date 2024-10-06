@@ -13,3 +13,18 @@ main {
     border-top: 2px solid #124580;  /* Color de la línea */
     margin: 10px 0;  /* Espaciado alrededor de la línea */
 }
+
+/* Ocultar inicialmente los botones de agregar y buscar dispositivos */
+#btnAgregarDispositivo, #btnBuscar {
+    display: none;
+}
+/*Quitar borde de la lista de dispitivos */
+.collection {
+    border: none;
+}
+#btnContainer {
+    display: none; /* Mantener oculto inicialmente */
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
