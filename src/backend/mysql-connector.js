@@ -12,13 +12,17 @@ var connection = mysql.createConnection({
 
 //=======[ Main module code ]==================================================
 
-connection.connect(function(err) {
-    if (err) {
-        console.error('Error while connect to DB: ' + err.stack);
-        return;
-    }
-    console.log('Connected to DB under thread ID: ' + connection.threadId);
-});
+setTimeout(() => { 
+    // Debo retrasa la conexión 5 segundos para asegurarme que el servicio MySQL esté operativo.
+    connection.connect(function(err) {
+        if (err) {
+            console.error('Error while connect to DB: ' + err.stack);
+            return;
+        }
+        console.log('Connected to DB under thread ID: ' + connection.threadId);
+    });
+}, 5000); // Espera 5 segundos antes de intentar conectarse
+
 
 module.exports = connection;
 

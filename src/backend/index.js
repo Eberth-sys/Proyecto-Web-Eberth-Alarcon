@@ -31,6 +31,20 @@ app.post('/usuario', function(req, res) {
     }
 });
 
+// Apartado de la [ BUSCAR LOS DISPOTIVOS. ].
+
+// Obtener la lista de dispositivos desde la base de datos
+app.get('/devices/', (req, res) => {
+    utils.query('SELECT * FROM Devices', (error, results, fields) => {
+        if (error) {
+            console.error("Error al realizar la consulta: " + error.stack);
+            res.status(500).send('Error al obtener los dispositivos');
+            return;
+        }
+        res.status(200).json(results);
+    });
+});
+
 // Apartado de la [ ESTADO DE LOS DISPOTIVOS. ].
 
 app.put('/updateDeviceState', function(req, res) {
@@ -46,47 +60,6 @@ app.put('/updateDeviceState', function(req, res) {
         // Si no se cumple, responder con un mensaje de error
         res.status(400).send('[Backend]: Datos incompletos o inválidos');
     }
-});
-
-app.get('/devices/', function(req, res, next) {
-    devices = [
-        { 
-            'id': 1, 
-            'name': 'Lampara 1', 
-            'description': 'Luz living', 
-            'state': 0, 
-            'type': 1, 
-        },
-        { 
-            'id': 2, 
-            'name': 'Ventilador 1', 
-            'description': 'Ventilador Habitacion', 
-            'state': 1, 
-            'type': 2, 
-        },
-        { 
-            'id': 3, 
-            'name': 'Aspiradora 1', 
-            'description': 'Aspiradora IoT', 
-            'state': 1, 
-            'type': 2, 
-        },
-        { 
-            'id': 4, 
-            'name': 'ESP32 C3 1', 
-            'description': 'Microcontrolador ESP32 C3', 
-            'state': 0, 
-            'type': 2, 
-        },
-        { 
-            'id': 5, 
-            'name': 'Cafetera 1', 
-            'description': 'Cafetera cocina', 
-            'state': 1, 
-            'type': 2, 
-        },
-    ]
-    res.send(JSON.stringify(devices)).status(200);
 });
 
 app.listen(PORT, function(req, res) {
