@@ -114,32 +114,57 @@ class Main implements EventListenerObject {
             if (xmlHttp.readyState == 4) {
                 if (xmlHttp.status == 200) {
                     let ul = this.recuperarElemento("list");
-
+    
                     if (ul) { // elemento 'list' existe
                         let listaDevices: string = '';
                         let lista: Array<Device> = JSON.parse(xmlHttp.responseText);
-
+    
                         for (let item of lista) {
-                            listaDevices += `<li class="collection-item avatar">
-                                <img src="./static/images/1421.png" alt="" class="circle">
-                                <span class="title">${item.name}</span>
-                                <p>${item.description}</p>
-                                <a href="#!" class="secondary-content">
-                                    <div class="switch">
-                                        <label>
-                                            Off
-                                            <input type="checkbox" ${item.state ? 'checked' : ''} data-id="${item.id}" onchange="main.cambiarEstadoDispositivo(event)">
-                                            <span class="lever"></span>
-                                            On
-                                        </label>
+                            // Si el dispositivo es de tipo (1) 
+                            if (item.type === 1) {
+                                listaDevices += `<li class="collection-item avatar">
+                                    <img src="./static/images/1421.png" alt="" class="circle">
+                                    <span class="title">${item.name}</span>
+                                    <p>${item.description}</p>
+                                    <!-- Control deslizante para luces o persionadas -->
+                                    <div class="secondary-content">
+                                        <form action="#">
+                                        <p class="range-field" style="text-align: center;">
+                                            <input type="range" id="range-${item.id}" min="0" max="1" step="0.1" value="${item.state}" onchange="main.cambiarIntensidad(event, ${item.id})"  style="width: 150px;">
+                                        </p>
+                                        </form>
                                     </div>
-                                </a>
-                                <div class="center-align">
-                                <button class="btn-small waves-effect waves-light" data-id="${item.id}" onclick="main.editarDispositivo(event)">Editar</button>
-                                <!-- Botón de Eliminar -->
-                                <button class="btn-small red waves-effect waves-light" onclick="main.eliminarDispositivo(${item.id}, '${item.name}')">Eliminar</button>
-                                </div>
-                            </li>`;
+                                    <div class="center-align">
+                                    <!-- Botón de Editiar -->
+                                        <button class="btn-small waves-effect waves-light" data-id="${item.id}" onclick="main.editarDispositivo(event)">Editar</button>   
+                                    <!-- Botón de Eliminar -->
+                                        <button class="btn-small red waves-effect waves-light" onclick="main.eliminarDispositivo(${item.id}, '${item.name}')">Eliminar</button>
+                                    </div>
+                                </li>`;
+                            } else {
+                                listaDevices += `<li class="collection-item avatar">
+                                    <img src="./static/images/1421.png" alt="" class="circle">
+                                    <span class="title">${item.name}</span>
+                                    <p>${item.description}</p>      
+                                    <a href="#!" class="secondary-content">
+                                    <!-- Switch de encendido/apagado para otros dispositivos -->
+                                        <div class="switch">
+                                            <label>
+                                                Off
+                                                <input type="checkbox" ${item.state ? 'checked' : ''} data-id="${item.id}" onchange="main.cambiarEstadoDispositivo(event)">
+                                                <span class="lever"></span>
+                                                On
+                                            </label>
+                                        </div>
+                                    </a>
+                                    <div class="center-align">
+                                        <!-- Botón de Editiar -->
+                                        <button class="btn-small waves-effect waves-light" data-id="${item.id}" onclick="main.editarDispositivo(event)">Editar</button>
+                                        <!-- Botón de Eliminar -->
+                                        <button class="btn-small red waves-effect waves-light" onclick="main.eliminarDispositivo(${item.id}, '${item.name}')">Eliminar</button>
+                                    </div>
+                                </li>`;
+                            }
                         }
                         ul.innerHTML = listaDevices;
                     } else {
@@ -149,12 +174,13 @@ class Main implements EventListenerObject {
                     alert("ERROR en la consulta de dispositivos.");
                 }
             }
-        }
-
+        };
+    
         xmlHttp.open("GET", "http://localhost:8000/devices", true);
         xmlHttp.send(); 
     }
-
+    
+    //Bloque para administrar el cambio de estado del dispotivo [updateDeviceState].    
     public cambiarEstadoDispositivo(event: Event): void {
         let checkbox = <HTMLInputElement>event.target;
         let idDispositivo = checkbox.getAttribute('data-id');
@@ -179,8 +205,31 @@ class Main implements EventListenerObject {
         xmlHttp.send(data); // Envío el ID y el estado actualizado al backend
     }
 
-   
-     public editarDispositivo(event: Event): void {
+    // Bloque para administrar el cambio en la intensidad del dispositivo [updateDeviceIntensity]
+    public cambiarIntensidad(event: Event, deviceId: number): void {
+        let rangeInput = <HTMLInputElement>event.target;
+        let nuevoValor = parseFloat(rangeInput.value);
+
+        console.log(`Dispositivo ID: ${deviceId}, nuevo valor de intensidad: ${nuevoValor}`);
+
+        // Enviar el nuevo valor de intensidad al backend
+        let data = JSON.stringify({ id: deviceId, intensity: nuevoValor });
+
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("PUT", "http://localhost:8000/updateDeviceIntensity", true);
+        xmlHttp.setRequestHeader("Content-Type", "application/json");
+        xmlHttp.onreadystatechange = () => {
+            if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                console.log("Intensidad del dispositivo actualizada en el servidor");
+            } else if (xmlHttp.readyState === 4) {
+                console.log("Error al actualizar la intensidad del dispositivo");
+            }
+        };
+        xmlHttp.send(data);
+    }
+
+    //Bloque para administrar la edición del dispotivo. 
+    public editarDispositivo(event: Event): void {
         let boton = <HTMLButtonElement>event.target;
         let idDispositivo = boton.getAttribute('data-id');
 
@@ -216,6 +265,7 @@ class Main implements EventListenerObject {
         }
     }
     
+    //Bloque para  eliminar un dispotivo. 
     public eliminarDispositivo(idDispositivo: number, nombreDispositivo: string): void {
         console.log(`Dispositivo ID: ${idDispositivo} con nombre [${nombreDispositivo}] será eliminado.`);
     

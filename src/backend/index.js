@@ -132,6 +132,28 @@ app.post('/addDevice', function(req, res) {
     }
 });
 
+// Apartado para administrar la intensidad de un dispositivo
+app.put('/updateDeviceIntensity', function(req, res) {
+    console.log("Actualizar intensidad del dispositivo", req.body);
+
+    // Verifico que se han recibido todos los campos correctos
+    if (req.body.id !== undefined && req.body.intensity !== undefined) {
+        let query = `UPDATE Devices SET state = ${req.body.intensity} WHERE id = ${req.body.id}`;
+
+        // Ejecutar la consulta para actualizar la intensidad
+        utils.query(query, (err, resp, meta) => {
+            if (err) {
+                console.log(err.sqlMessage);
+                res.status(409).send(err.sqlMessage);
+            } else {
+                res.send(`Intensidad actualizada correctamente para el dispositivo con ID: ${req.body.id}`);
+            }
+        });
+    } else {
+        res.status(400).send('Datos incompletos o inválidos');
+    }
+});
+
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");
 });
