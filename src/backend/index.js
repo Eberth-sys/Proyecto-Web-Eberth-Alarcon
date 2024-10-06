@@ -49,18 +49,29 @@ app.get('/devices/', (req, res) => {
 
 app.put('/updateDeviceState', function(req, res) {
     // Imprimo los datos recibidos desde el frontend
-    console.log("Dispotivo y Estado", req.body);
+    console.log("Dispositivo y Estado", req.body);
 
     // Verifico si recibo el ID del dispositivo y el nuevo estado
     if (req.body.id !== undefined && req.body.state !== undefined) {
         console.log(`[Backend]: El dispositivo con ID ${req.body.id} ha sido actualizado a: ${req.body.state ? 'On' : 'Off'}`);
-        // Responder al frontend con un mensaje de confirmación
-        res.status(200).send(`[Backend]: Estado del dispositivo ID ${req.body.id} ha sido actualizado correctamente a: ${req.body.state ? 'On' : 'Off'}`);
+        
+        // Construyo la consulta para actualizar el estado
+        utils.query("UPDATE Devices SET state=" + req.body.state + " WHERE id=" + req.body.id, 
+            (err, resp, meta) => {
+                if (err) {
+                    console.log(err.sqlMessage);
+                    res.status(409).send(err.sqlMessage);
+                } else {
+                    res.send("Estado actualizado correctamente. Respuesta: " + resp);
+                }
+            }
+        );
     } else {
         // Si no se cumple, responder con un mensaje de error
         res.status(400).send('[Backend]: Datos incompletos o inválidos');
     }
 });
+
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");
