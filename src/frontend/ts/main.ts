@@ -132,8 +132,7 @@ class Main implements EventListenerObject {
         let nuevoEstado = checkbox.checked;
    
         // Mostrar en consola el ID del dispositivo y su nuevo estado (true o false)
-        console.log(`Dispositivo ID: ${idDispositivo} cambiado a: ${nuevoEstado ? 'On' : 'Off'}`);
-        console.log(`Estado booleano enviado: ${nuevoEstado}`);
+        console.log(`Dispositivo ID: ${idDispositivo} cambiado a: ${nuevoEstado ? 'On' : 'Off'} :${nuevoEstado} `);
 
         // Envio el nuevo estado del dispositivo al servidor Backend
         let data = JSON.stringify({ id: idDispositivo, state: nuevoEstado });
