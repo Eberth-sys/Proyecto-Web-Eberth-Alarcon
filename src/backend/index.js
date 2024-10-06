@@ -97,6 +97,21 @@ app.put('/editDevice', function(req, res) {
     }
 });
 
+// Apartado para [ELIMINAR LOS DISPOTIVOS].
+app.delete('/deleteDevice/:id', function(req, res) {
+    let deviceId = req.params.id;
+    // Realizo la ACCIÓN EN la bd para eliminar el dispositivo solicitado.
+    utils.query(`DELETE FROM Devices WHERE id = ${deviceId}`, function(error, results) {
+        if (error) {
+            console.log("Error al eliminar el dispositivo: " + error.sqlMessage);
+            res.status(409).send(error.sqlMessage);
+        } else {
+            res.status(200).send(`Dispositivo con ID ${deviceId} eliminado correctamente.`);
+        }
+    });
+});
+
+
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");
 });

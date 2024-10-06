@@ -186,11 +186,28 @@ class Main implements EventListenerObject {
             alert("Todos los campos deben ser completados.");
         }
     }
-
+    
     public eliminarDispositivo(idDispositivo: number, nombreDispositivo: string): void {
         console.log(`Dispositivo ID: ${idDispositivo} con nombre [${nombreDispositivo}] será eliminado.`);
-        // Mensaje de alerta que sera eliminado
-        alert(`El Dispositivo ID: ${idDispositivo} con nombre [${nombreDispositivo}] será eliminado.`);
+    
+        // Confirmar eliminación del dispositivo
+        if (confirm(`¿Estás seguro de que deseas eliminar el dispositivo [${nombreDispositivo}]?`)) {
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("DELETE", `http://localhost:8000/deleteDevice/${idDispositivo}`, true);
+            xmlHttp.onreadystatechange = () => {
+                if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                    console.log(`Dispositivo ID: ${idDispositivo} con nombre [${nombreDispositivo}] eliminado correctamente`);
+                    alert(`Dispositivo ${nombreDispositivo} eliminado correctamente.`);
+                    // Actualizo la lista de dispositivos
+                    this.buscarDevices();
+                } else if (xmlHttp.readyState === 4) {
+                    console.log("Error al eliminar el dispositivo");
+                }
+            };
+            xmlHttp.send();
+        } else {
+            console.log("Eliminación cancelada por el usuario.");
+        }
     }
     
 
