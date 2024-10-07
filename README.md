@@ -158,7 +158,7 @@ En esta sección podés ver los detalles específicos de funcionamiento del cód
 
 En el cliente web, hay un botón "Agregar Nuevo Dispositivo" que permite al usuario ingresar los detalles de un nuevo dispositivo como nombre, descripción, tipo y estado inicial. Estos datos son enviados al backend mediante una solicitud POST, que se encarga de almacenar el nuevo dispositivo en la base de datos MySQL. El frontend luego actualiza automáticamente la lista de dispositivos para reflejar los cambios en tiempo real.
 
-![Botón Agregar](doc/boton_agregar.png)
+![architecture](doc/botonagregar.png)
 
 ### Frontend
 
