@@ -9,6 +9,8 @@ Web App Full Stack Base
 
 El proyecto "Smart Home" es una aplicación web que he desarrollado para la clase de "Desarrollo de Aplicaciones Web" en la Universidad de Buenos Aires, Argentina. La app permite controlar dispositivos de un hogar inteligente, como luces, ventiladores, y persianas, directamente desde el navegador. Usando Node.js para el backend y TypeScript para el frontend, el sistema se comunica con una base de datos MySQL para guardar y actualizar el estado de los dispositivos en tiempo real. Todo esto está configurado y gestionado a través de Docker para facilitar la implementación y el manejo de servicios.
 
+Ejemplo de la visualización de la interfaz.
+
 ![architecture](doc/SmartHome01.png)
 ![architecture](doc/DevicesIoT.png)
 
@@ -30,10 +32,11 @@ Continua con la descarga del código cuando tengas las dependencias instaladas y
 
 ### Descargar el código
 
-Para descargar el código, lo más conveniente es que realices un `fork` de este proyecto a tu cuenta personal haciendo click en [este link](https://github.com/gotoiot/app-fullstack-base/fork). Una vez que ya tengas el fork a tu cuenta, descargalo con este comando (acordate de poner tu usuario en el link):
+Para descargar el código, lo más conveniente es que realices un `fork` de este proyecto a tu cuenta personal haciendo click en [este link](https://github.com/Eberth-sys/Proyecto-Web-Eberth-Alarcon/fork). Una vez que ya tengas el fork a tu cuenta, descargalo con este comando (acordate de poner tu usuario en el link):
 
 ```
-git clone https://github.com/USER/app-fullstack-base.git
+git clone https://github.com/USER/Proyecto-Web-Eberth-Alarcon.git
+
 ```
 
 > En caso que no tengas una cuenta en Github podes clonar directamente este repo.
@@ -153,7 +156,9 @@ En esta sección podés ver los detalles específicos de funcionamiento del cód
 
 ### Agregar un dispositivo
 
-Completá los pasos para agregar un dispositivo desde el cliente web.
+En el cliente web, hay un botón "Agregar Nuevo Dispositivo" que permite al usuario ingresar los detalles de un nuevo dispositivo como nombre, descripción, tipo y estado inicial. Estos datos son enviados al backend mediante una solicitud POST, que se encarga de almacenar el nuevo dispositivo en la base de datos MySQL. El frontend luego actualiza automáticamente la lista de dispositivos para reflejar los cambios en tiempo real.
+
+![architecture](doc/boton agregar.png)
 
 ### Frontend
 
