@@ -49,7 +49,7 @@ Para acceder al cliente web ingresa a a la URL [http://localhost:8000/](http://l
 
 Si pudiste acceder al cliente web y al administrador significa que la aplicación se encuentra corriendo bien. 
 
-> Si te aparece un error la primera vez que corres la app, deteńe el proceso y volvé a iniciarla. Esto es debido a que el backend espera que la DB esté creada al iniciar, y en la primera ejecución puede no alcanzar a crearse. A partir de la segunda vez el problema queda solucionado.
+> ⚠️ ⚠️ ⚠️ Si te aparece un error la primera vez que corres la app, deteńe el proceso y volvé a iniciarla. Esto es debido a que el backend espera que la DB esté creada al iniciar, y en la primera ejecución puede no alcanzar a crearse. A partir de la segunda vez el problema queda solucionado.
 
 </details>
 
