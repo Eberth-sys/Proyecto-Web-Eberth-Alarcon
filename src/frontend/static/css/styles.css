@@ -23,8 +23,32 @@ main {
     border: none;
 }
 #btnContainer {
-    display: none; /* Mantener oculto inicialmente */
+    display: none; /* Mantener oculto el boton inicialmente */
     justify-content: center;
     margin-bottom: 20px;
 }
 
+body {
+    font-family: 'Orbitron', sans-serif; /* Estilo de letra */
+}
+
+/* Color de los nombres de los dispositivos */
+.collection-item .title {
+    color: #00bcd4; 
+    font-weight: bold; 
+}
+
+/* Color de descripción de los dispositivos */
+.collection-item p {
+    color: #c70f6b; 
+    font-style: italic; 
+}
+
+/* Fondo Formulario en una tarjeta con sombra */
+#divLogin {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}

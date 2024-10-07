@@ -264,6 +264,7 @@ class Main implements EventListenerObject {
             xmlHttp.onreadystatechange = () => {
                 if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
                     console.log("Dispositivo actualizado en el servidor");
+                    this.buscarDevices(); //llamo a la funcion buscar dispotivios 
                 } else if (xmlHttp.readyState === 4) {
                     console.log("Error al actualizar el dispositivo");
                 }
