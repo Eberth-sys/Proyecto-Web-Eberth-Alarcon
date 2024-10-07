@@ -158,39 +158,117 @@ En esta sección podés ver los detalles específicos de funcionamiento del cód
 
 En el cliente web, hay un botón "Agregar Nuevo Dispositivo" que permite al usuario ingresar los detalles de un nuevo dispositivo como nombre, descripción, tipo y estado inicial. Estos datos son enviados al backend mediante una solicitud POST, que se encarga de almacenar el nuevo dispositivo en la base de datos MySQL. El frontend luego actualiza automáticamente la lista de dispositivos para reflejar los cambios en tiempo real.
 
-![architecture](doc/boton agregar.png)
+![Botón Agregar](doc/boton_agregar.png)
 
 ### Frontend
 
-Completá todos los detalles sobre cómo armaste el frontend, sus interacciones, etc.
+El frontend está construido como una Single Page Application (SPA) utilizando HTML, CSS, y TypeScript. Se basa en el framework Materialize para asegurar un diseño responsivo y moderno. Las interacciones en el cliente web permiten al usuario:
+
+- Ver la lista de dispositivos conectados en el hogar.
+- Cambiar el estado de los dispositivos (encendido/apagado).
+- Ajustar la intensidad de algunos dispositivos mediante sliders.
+- Agregar, editar y eliminar dispositivos directamente desde la interfaz.
+- Todas estas acciones en el frontend se comunican con el backend mediante llamadas HTTP utilizando JSON para intercambiar datos, manteniendo la aplicación dinámica y en tiempo real.
 
 ### Backend
 
-Completá todos los detalles de funcionamiento sobre el backend, sus interacciones con el cliente web, la base de datos, etc.
+El backend está desarrollado en Node.js y utiliza Express.js para manejar las solicitudes HTTP. Se conecta a una base de datos MySQL para almacenar y recuperar los datos de los dispositivos. Los endpoints disponibles en el backend permiten realizar las siguientes acciones:
+
+- Obtener la lista de dispositivos almacenados en la base de datos.
+- Agregar un nuevo dispositivo con sus características.
+- Editar las características de un dispositivo existente.
+- Eliminar un dispositivo específico de la base de datos.
+- Actualizar el estado o la intensidad de un dispositivo en tiempo real.
 
 <details><summary><b>Ver los endpoints disponibles</b></summary><br>
 
 Completá todos los endpoints del backend con los metodos disponibles, los headers y body que recibe, lo que devuelve, ejemplos, etc.
 
-1) Devolver el estado de los dispositivos.
+Endpoints del Backend
 
-```json
-{
-    "method": "get",
-    "request_headers": "application/json",
-    "request_body": "",
-    "response_code": 200,
-    "request_body": {
+1) Obtener el estado de los dispositivos.
+
+- Método: GET
+- Ruta: /devices
+- Headers: application/json
+- Body: No se requiere.
+- Código de respuesta: 200
+- Ejemplo de respuesta:
+    ```json
+    {
         "devices": [
             {
                 "id": 1,
+                "name": "Ventilador",
                 "status": true,
-                "description": "Kitchen light"
+                "description": "Ventilador en sala",
+                "type": 1
+            },
+            {
+                "id": 2,
+                "name": "Cafetera",
+                "status": false,
+                "description": "Cafetera de cocina",
+                "type": 2
             }
         ]
-    },
-}
-``` 
+    }
+    ```
+
+2) Agregar un nuevo dispositivo.
+
+- Método: POST
+- Ruta: /addDevice
+- Headers: application/json
+- Body:
+    ```json
+    {
+        "name": "Lámpara",
+        "description": "Lámpara de mesa",
+        "type": 3,
+        "state": true
+    }
+    ```
+- Código de respuesta: 200 (dispositivo agregado con éxito) o 400 (datos incompletos/inválidos).
+
+3) Editar un dispositivo existente.
+
+- Método: PUT
+- Ruta: /editDevice
+- Headers: application/json
+- Body:
+
+    ```json
+    {
+        "id": 1,
+        "name": "Lámpara editada",
+        "description": "Descripción actualizada",
+        "type": 3
+    }
+    ```
+- Código de respuesta: 200 (dispositivo actualizado) o 400 (datos incompletos/inválidos).
+
+4) Actualizar el estado de un dispositivo.
+
+- Método: PUT
+- Ruta: /updateDeviceState
+- Headers: application/json
+- Body:
+    ```json
+    {
+        "id": 2,
+        "state": true
+    }
+    ```
+- Código de respuesta: 200 (estado actualizado) o 400 (datos incompletos/inválidos).
+
+5) Eliminar un dispositivo.
+
+- Método: DELETE
+- Ruta: /deleteDevice/:id
+- Headers: application/json
+- Body: No se requiere.
+- Código de respuesta: 200 (dispositivo eliminado) o 400 (dispositivo no encontrado).
 
 </details>
 
@@ -240,11 +318,7 @@ Si te gustó este proyecto y quisieras apoyarlo, cualquiera de estas acciones es
 
 Las colaboraciones principales fueron realizadas por:
 
-* **[Agustin Bassi](https://github.com/agustinBassi)**: Ideación, puesta en marcha y mantenimiento del proyecto.
-* **[Ernesto Giggliotti](https://github.com/ernesto-g)**: Creación inicial del frontend, elección de Material Design.
-* **[Brian Ducca](https://github.com/brianducca)**: Ayuda para conectar el backend a la base de datos, puesta a punto de imagen de Docker.
-
-También podés mirar todas las personas que han participado en la [lista completa de contribuyentes](https://github.com/###/contributors).
+* **[Eberth Alarcón](https://github.com/Eberth-sys)**: Alumno de la Especialización en Internet de las Cosas de la Universidad de Buenos Aires, Argentina. 
 
 ## Licencia 📄
 
